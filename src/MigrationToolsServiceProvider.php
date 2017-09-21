@@ -3,6 +3,7 @@
 namespace NFarrington\LaravelMigrationTools;
 
 use Illuminate\Support\ServiceProvider;
+use NFarrington\LaravelMigrationTools\Console\CheckStatusCommand;
 
 class MigrationToolsServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,11 @@ class MigrationToolsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CheckStatusCommand::class,
+            ]);
+        }
     }
 
     /**
