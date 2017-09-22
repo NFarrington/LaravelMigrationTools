@@ -15,9 +15,7 @@ class MigrationToolsServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            $this->commands([
-                CheckStatusCommand::class,
-            ]);
+            $this->commands('command.migration-tools.check-status');
         }
     }
 
@@ -28,6 +26,11 @@ class MigrationToolsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(
+            'command.migration-tools.check-status',
+            function ($app) {
+                return new CheckStatusCommand($app['migrator']);
+            }
+        );
     }
 }
