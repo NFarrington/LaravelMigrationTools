@@ -21,9 +21,7 @@ class MigrationToolsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands('command.migration-tools.check-status');
-        }
+        $this->commands('command.migration-tools.check-status');
     }
 
     /**
